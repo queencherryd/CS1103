@@ -14,3 +14,22 @@
 - **Database:** MySQL or PostgreSQL.
 - **JDBC Driver:** MySQL Connector/J or PostgreSQL JDBC driver.
 - **IDE:** IntelliJ IDEA, Eclipse, VS Code, or any Java-supported IDE.
+
+## Team Distribution
+
+- **Stephanie:**  
+  - Database Design & SQL Implementation  
+  - Create ER Diagram, Schema, and sample data
+
+- **Davida:**  
+  - Java & JDBC Integration  
+  - Implement database connection and core DAO classes
+
+- **Tolu:**  
+  - Student and Instructor Management  
+  - Develop CRUD operations for students and instructors  
+  - Implement tax calculation queries
+
+- **Sofiri:**  
+  - Enrollment and Reporting System  
+  - Manage course enrollments and generate reports (e.g., top student per semester)
