@@ -11,8 +11,8 @@
 ## Requirements
 
 - **Java:** Version 11 or later.
-- **Database:** MySQL or PostgreSQL.
-- **JDBC Driver:** MySQL Connector/J or PostgreSQL JDBC driver.
+- **Database:** MySQL .
+- **JDBC Driver:** MySQL Connector/J.
 - **IDE:** IntelliJ IDEA, Eclipse, VS Code, or any Java-supported IDE.
 
 ## Team Distribution
