@@ -14,7 +14,7 @@ public class DBConnection {
     // Update with your actual DB credentials
     private static final String URL = "jdbc:mysql://localhost:3306/university";
     private static final String USER = "root";
-    private static final String PASSWORD = "Lifted2018!";
+    private static final String PASSWORD = "password!";
 
     // Method to get database connection
     public static Connection getConnection() throws SQLException {
