@@ -1,6 +1,11 @@
+-- ===============================
+-- DB CREATION 
+-- ===============================
+CREATE DATABASE University;
+USE University;
 
 -- ===============================
--- TABLE CREATION (MySQL-Compatible)
+-- TABLE CREATION 
 -- ===============================
 
 CREATE TABLE Departments (
