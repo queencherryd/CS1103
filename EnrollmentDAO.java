@@ -1,39 +1,38 @@
+package dao;
+
+import util.DBConnection;
+
 import java.sql.*;
-/**
- * Write a description of class EnrollmentDAO here.
- *
- * @author (your name)
- * @version (a version number or a date)
- */
-// EnrollmentDAO.java
-// Handles report: top student(s) based on highest grade
+
 public class EnrollmentDAO {
-
-    // Find and print student(s) with the highest grade overall
-    public void printTopStudentsOverall() {
-        String sql = """
-            SELECT Student_ID, Grade
-            FROM Enrollment
-            WHERE Grade = (
-                SELECT MAX(Grade)
-                FROM Enrollment
-            );
-        """;
-
+    public void enrollStudent(int enrollId, int studentId, int courseId, String grade) throws SQLException {
+        String sql = "INSERT INTO Enrollments (Enrollment_ID, Student_ID, Course_ID, Grade) VALUES (?, ?, ?, ?)";
         try (Connection conn = DBConnection.getConnection();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, enrollId);
+            stmt.setInt(2, studentId);
+            stmt.setInt(3, courseId);
+            stmt.setString(4, grade);
+            stmt.executeUpdate();
+        }
+    }
 
-            System.out.println("Top Student(s) with Highest Grade:");
-            while (rs.next()) {
-                int studentId = rs.getInt("Student_ID");
-                double grade = rs.getDouble("Grade");
+    public void updateGrade(int enrollId, String newGrade) throws SQLException {
+        String sql = "UPDATE Enrollments SET Grade = ? WHERE Enrollment_ID = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, newGrade);
+            stmt.setInt(2, enrollId);
+            stmt.executeUpdate();
+        }
+    }
 
-                System.out.println("Student ID: " + studentId + " | Grade: " + grade);
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
+    public void deleteEnrollment(int enrollId) throws SQLException {
+        String sql = "DELETE FROM Enrollments WHERE Enrollment_ID = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, enrollId);
+            stmt.executeUpdate();
         }
     }
 }
