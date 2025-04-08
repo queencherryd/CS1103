@@ -74,3 +74,26 @@ SELECT
     ROUND(i.Salary * 0.10, 2) AS Income_Tax
 FROM Instructors i;
 
+--12. Top Student Per Semester
+SELECT semester, student_id, AVG(grade) AS avg_grade
+FROM Enrollments
+GROUP BY semester, student_id
+HAVING AVG(grade) = (
+    SELECT MAX(avg_grade)
+    FROM (
+        SELECT semester AS s, student_id AS sid, AVG(grade) AS avg_grade
+        FROM Enrollments
+        GROUP BY semester, student_id
+    ) AS semester_grades
+    WHERE semester_grades.s = Enrollments.semester
+);
+
+--13. Top Student Per Course
+SELECT course_id, 
+       COUNT(enrollment_id) AS total_enrollments,
+       AVG(grade) AS average_grade,
+       MAX(grade) AS highest_grade,
+       MIN(grade) AS lowest_grade
+FROM Enrollments
+GROUP BY course_id;
+
