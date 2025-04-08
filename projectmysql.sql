@@ -1,17 +1,13 @@
 -- ===============================
--- DB CREATION 
+-- TABLE CREATION 
 -- ===============================
 CREATE DATABASE University;
 USE University;
 
--- ===============================
--- TABLE CREATION 
--- ===============================
-
 CREATE TABLE Departments (
-    Department_ID INT AUTO_INCREMENT PRIMARY KEY,
+   Department_ID INT AUTO_INCREMENT PRIMARY KEY,
     Department_Name VARCHAR(100) NOT NULL
-);
+ );
 
 CREATE TABLE Students (
     Student_ID INT AUTO_INCREMENT PRIMARY KEY,
@@ -33,6 +29,7 @@ CREATE TABLE Instructors (
 CREATE TABLE Courses (
     Course_ID INT AUTO_INCREMENT PRIMARY KEY,
     Course_Name VARCHAR(100) NOT NULL,
+    Credits INT,
     Instructor_ID INT,
     Department_ID INT,
     FOREIGN KEY (Instructor_ID) REFERENCES Instructors(Instructor_ID),
@@ -43,6 +40,8 @@ CREATE TABLE Enrollments (
     Enrollment_ID INT AUTO_INCREMENT PRIMARY KEY,
     Student_ID INT,
     Course_ID INT,
+    Semester CHAR,
+    Year INT,
     Grade CHAR(2),
     FOREIGN KEY (Student_ID) REFERENCES Students(Student_ID),
     FOREIGN KEY (Course_ID) REFERENCES Courses(Course_ID)
@@ -75,24 +74,24 @@ INSERT INTO Instructors (Name, Salary, Department_ID) VALUES
 ('Dr. Rajiv Mehta', 78000.00, 3);
 
 -- Insert into Courses
-INSERT INTO Courses (Course_Name, Instructor_ID, Department_ID) VALUES
-('Data Structures', 1, 1),
-('Linear Algebra', 2, 2),
-('Quantum Mechanics', 3, 3),
-('Algorithms', 1, 1),
-('Database Systems', 1, 1),
-('Statistical Methods', 2, 2);
+INSERT INTO Courses (Course_Name,credits , Instructor_ID, Department_ID) VALUES
+('Data Structures', 3 , 1, 1),
+('Linear Algebra', 4 , 2, 2),
+('Quantum Mechanics', 4 , 3, 3),
+('Algorithms', 2 , 1, 1),
+('Database Systems', 3 , 1, 1),
+('Statistical Methods', 4 , 2, 2);
 
 -- Insert into Enrollments
-INSERT INTO Enrollments (Student_ID, Course_ID, Grade) VALUES
-(1, 1, 'A'),
-(2, 2, 'B'),
-(3, 1, 'A'),
-(3, 4, 'B'),
-(4, 3, 'A'),
-(5, 6, 'B'),
-(6, 1, 'A'),
-(6, 5, 'A'),
-(7, 3, 'B'),
-(2, 6, 'A'),
-(1, 5, 'B');
+INSERT INTO Enrollments (Student_ID, Course_ID, Semester, Year, Grade) VALUES
+(1, 1, 'Fall', 2024, 'A'),
+(2, 2, 'Winter', 2024, 'B'),
+(3, 1, 'Fall', 2024, 'A'),
+(3, 4, 'Winter', 2024, 'B'),
+(4, 3, 'Fall', 2024, 'A'),
+(5, 6, 'Winter', 2024,'B'),
+(6, 1, 'Fall', 2024, 'A'),
+(6, 5, 'Winter', 2024,'A'),
+(7, 3, 'Fall', 2024, 'B'),
+(2, 6, 'Fall', 2024,'A'),
+(1, 5, 'Winer', 2024,'B');
