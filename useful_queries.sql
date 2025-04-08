@@ -66,3 +66,11 @@ FROM Enrollments e
 JOIN Students s ON e.Student_ID = s.Student_ID
 JOIN Courses c ON e.Course_ID = c.Course_ID
 WHERE e.Grade = 'D' OR e.Grade = 'F';
+
+-- 11. Income tax (10%) for each instructor
+SELECT 
+    i.Name AS Instructor, 
+    i.Salary, 
+    ROUND(i.Salary * 0.10, 2) AS Income_Tax
+FROM Instructors i;
+
