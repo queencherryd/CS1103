@@ -27,12 +27,74 @@ public class InstructorDAO {
         }
     }
 
-    public void deleteInstructor(int id) throws SQLException {
+    public void deleteInstructor(int id) throws SQLException 
+    {
         String sql = "DELETE FROM Instructors WHERE Instructor_ID = ?";
         try (Connection conn = DBConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(sql)) 
+        {
             stmt.setInt(1, id);
             stmt.executeUpdate();
         }
     }
+
+        // Update instructor's name
+    public void updateInstructorName(int id, String newName) throws SQLException 
+    {
+        String sql = "UPDATE Instructors SET Name = ? WHERE Instructor_ID = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) 
+        {
+            stmt.setString(1, newName);
+            stmt.setInt(2, id);
+            stmt.executeUpdate();
+        }
+    }
+
+    // Update instructor's email
+    public void updateInstructorEmail(int id, String newEmail) throws SQLException 
+    {
+        String sql = "UPDATE Instructors SET Email = ? WHERE Instructor_ID = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) 
+        {
+            stmt.setString(1, newEmail);
+            stmt.setInt(2, id);
+            stmt.executeUpdate();
+        }
+    }
+
+    // Update instructor's department
+    public void updateInstructorDepartment(int id, int newDeptId) throws SQLException 
+    {
+        String sql = "UPDATE Instructors SET Department_ID = ? WHERE Instructor_ID = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) 
+        {
+            stmt.setInt(1, newDeptId);
+            stmt.setInt(2, id);
+            stmt.executeUpdate();
+        }
+    }
+
+    // Print 10% income tax for each instructor
+    public void printIncomeTaxForAllInstructors() throws SQLException 
+    {
+        String sql = "SELECT Instructor_ID, Name, Salary FROM Instructors";
+        try (Connection conn = DBConnection.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) 
+        {
+
+            while (rs.next()) 
+          {
+                int id = rs.getInt("Instructor_ID");
+                String name = rs.getString("Name");
+                double salary = rs.getDouble("Salary");
+                double tax = salary * 0.10;
+
+                System.out.printf("Instructor ID: %d, Name: %s, Tax (10%%): $%.2f%n", id, name, tax);
+           }
+        }
+    }   
 }
