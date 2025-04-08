@@ -1,49 +1,38 @@
+package dao;
+
+import util.DBConnection;
+
 import java.sql.*;
 
-/**
- * Write a description of class InstructorDAO here.
- *
- * @author (your name)
- * @version (a version number or a date)
- */
-// InstructorDAO.java
-// Handles CRUD for Instructor + Tax report
-
 public class InstructorDAO {
-
-    // Add instructor
-    public void addInstructor(int id, String name, double salary, int deptId) {
-        String sql = "INSERT INTO Instructor VALUES (?, ?, ?, ?)";
+    public void addInstructor(int id, String name, int deptId, double salary) throws SQLException {
+        String sql = "INSERT INTO Instructors (Instructor_ID, Name, Department_ID, Salary) VALUES (?, ?, ?, ?)";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-
             stmt.setInt(1, id);
             stmt.setString(2, name);
-            stmt.setDouble(3, salary);
-            stmt.setInt(4, deptId);
+            stmt.setInt(3, deptId);
+            stmt.setDouble(4, salary);
             stmt.executeUpdate();
-
-            System.out.println("Instructor added.");
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 
-    // Show tax (10% of salary)
-    public void showInstructorTax() {
-        String sql = "SELECT Name, Salary, (Salary * 0.10) AS Tax FROM Instructor";
+    public void updateSalary(int id, double newSalary) throws SQLException {
+        String sql = "UPDATE Instructors SET Salary = ? WHERE Instructor_ID = ?";
         try (Connection conn = DBConnection.getConnection();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setDouble(1, newSalary);
+            stmt.setInt(2, id);
+            stmt.executeUpdate();
+        }
+    }
 
-            while (rs.next()) {
-                System.out.println("Name: " + rs.getString("Name") +
-                        ", Salary: $" + rs.getDouble("Salary") +
-                        ", Tax (10%): $" + rs.getDouble("Tax"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+    public void deleteInstructor(int id) throws SQLException {
+        String sql = "DELETE FROM Instructors WHERE Instructor_ID = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
         }
     }
 }
-
