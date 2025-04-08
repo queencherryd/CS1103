@@ -113,6 +113,7 @@ public class Main {
 
                     case 9:
                         instructorDAO.printIncomeTaxForAllInstructors();
+                        break;
 
                     case 10:
                         System.out.println("Exiting... Goodbye!");
